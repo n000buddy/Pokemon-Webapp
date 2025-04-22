@@ -1,10 +1,14 @@
 using MudBlazor.Services;
 using Pokemon.Dashboard.Components;
+using Pokemon.Dashboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
 builder.Services.AddMudServices();
+
+builder.Services.AddHttpClient<PokemonService>();
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

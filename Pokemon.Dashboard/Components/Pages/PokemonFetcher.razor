@@ -1,0 +1,47 @@
+﻿@page "/dashboard"
+@inject Pokemon.Dashboard.Services.PokemonService PokeService
+
+<MudPaper Class="pa-4">
+    <MudText Typo="Typo.h5">🔍 Pokémon Dashboard</MudText>
+
+    <MudTextField Label="Pokémon Name" @bind-Value="pokemonName" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="FetchPokemon" Class="mt-2">Laden</MudButton>
+
+    @if (pokemon != null)
+    {
+        <MudCard Class="mt-4">
+            <Component1 />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">@pokemon.name.ToUpper()</MudText>
+                <MudText>Größe: @pokemon.height</MudText>
+                <MudText>Gewicht: @pokemon.weight</MudText>
+                <MudText>Typ: @string.Join(", ", pokemon.types.Select(t => t.type.name))</MudText>
+
+                <MudDivider Class="my-2" />
+                <MudText Typo="Typo.subtitle2">📊 Stats:</MudText>
+                <Component />
+            </MudCardContent>
+        </MudCard>
+    }
+    else if (error)
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="mt-2">
+            Pokémon nicht gefunden.
+        </MudAlert>
+    }
+</MudPaper>
+
+@code {
+    private string pokemonName = "";
+    private Pokemon.Dashboard.Services.PokemonModel? pokemon;
+    private bool error = false;
+
+    private async Task FetchPokemon()
+    {
+        error = false;
+        pokemon = await PokeService.GetPokemonAsync(pokemonName);
+        if (pokemon == null)
+            error = true;
+    }
+}
+
