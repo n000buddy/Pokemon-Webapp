@@ -1,0 +1,41 @@
+@using System.Collections.Generic
+
+    @code {
+    private string selectedAnswer;
+    private int score = 0;
+    private bool isQuizFinished = false;
+
+    private MudForm quizForm;
+    private int currentQuestionIndex = 0;
+    private List<Question> questions = new List<Question>
+    {
+        new Question { Text = "Was ist die Hauptstadt von Deutschland?", CorrectAnswer = "Berlin" },
+        new Question { Text = "Was ist 5 + 3?", CorrectAnswer = "8" },
+        new Question { Text = "Wie heißt der Präsident der USA?", CorrectAnswer = "Joe Biden" }
+    };
+
+    private void NextQuestion()
+    {
+        if (selectedAnswer == questions[currentQuestionIndex].CorrectAnswer)
+        {
+            score++;
+        }
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex >= questions.Count)
+        {
+            isQuizFinished = true;
+        }
+        else
+        {
+            selectedAnswer = string.Empty;
+        }
+    }
+
+    public class Question
+    {
+        public string Text { get; set; }
+        public string CorrectAnswer { get; set; }
+    }
+}

@@ -1,11 +1,98 @@
-﻿@page "/Quiz"
+﻿@page "/quiz"
+@using System.Collections.Generic
+
+<MudPaper Elevation="4" Class="pa-4">
+    <MudText Typo="Typo.h4" Align="Align.Center">Quiz</MudText>
+
+    <MudForm @ref="quizForm">
+        <MudText Typo="Typo.h6" Align="Align.Left">Frage 1: Was ist die Hauptstadt von Deutschland?</MudText>
+        <MudRadioGroup @bind-SelectedValue="selectedAnswer" T="string">
+            <MudRadio Value="@("Berlin")">Berlin</MudRadio>
+            <MudRadio Value="@("München")">München</MudRadio>
+            <MudRadio Value="@("Stuttgart")">Stutgart</MudRadio>
+        </MudRadioGroup>
+
+        <MudButton OnClick="NextQuestion" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">
+            Nächste Frage
+        </MudButton>
+    </MudForm>
 
 
+    <MudForm @ref="quizForm">
+        <MudText Typo="Typo.h6" Align="Align.Left">Frage 2: Welches Pokemon lebt dort ?</MudText>
+        <MudRadioGroup @bind-SelectedValue="selectedAnswer" T="string">
+            <MudRadio Value="@("Test")">Test</MudRadio>
+            <MudRadio Value="@("Test")">Test</MudRadio>
+            <MudRadio Value="@("Test")">Test</MudRadio>
+        </MudRadioGroup>
 
-<PageTitle>Pokemon Quiz</PageTitle>
+        <MudButton OnClick="NextQuestion" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">
+            Nächste Frage
+        </MudButton>
+    </MudForm>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Pokemon Quiz</MudText>
-<MudText Typo="Typo.body1" Class="mb-8">Test your Knowledge about Pokemon</MudText>
+    <MudForm @ref="quizForm">
+        <MudText Typo="Typo.h6" Align="Align.Left">Frage 3: Welches Pokemon lebt dort ?</MudText>
+        <MudRadioGroup @bind-SelectedValue="selectedAnswer" T="string">
+            <MudRadio Value="@("Test")">Test</MudRadio>
+            <MudRadio Value="@("Test")">Test</MudRadio>
+            <MudRadio Value="@("Test")">Test</MudRadio>
+        </MudRadioGroup>
+
+        <MudButton OnClick="NextQuestion" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">
+            Nächste Frage
+        </MudButton>
+    </MudForm>
+    @if (isQuizFinished)
+    {
+        <MudText Typo="Typo.h6" Align="Align.Center" Color="Color.Success">
+            Du hast das Quiz abgeschlossen!
+        </MudText>
+        <MudText Typo="Typo.body1" Align="Align.Center">
+            Deine Punktzahl: @score
+        </MudText>
+    }
+    </MudPaper>
+
+    @code {
+    private string selectedAnswer;
+    private int score = 0;
+    private bool isQuizFinished = false;
+
+    private MudForm quizForm;
+    private int currentQuestionIndex = 0;
+    private List<Question> questions = new List<Question>
+    {
+        new Question { Text = "Was ist die Hauptstadt von Deutschland?", CorrectAnswer = "Berlin" },
+        new Question { Text = "Was ist 5 + 3?", CorrectAnswer = "8" },
+        new Question { Text = "Wie heißt der Präsident der USA?", CorrectAnswer = "Joe Biden" }
+    };
+
+    private void NextQuestion()
+    {
+        if (selectedAnswer == questions[currentQuestionIndex].CorrectAnswer)
+        {
+            score++;
+        }
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex >= questions.Count)
+        {
+            isQuizFinished = true;
+        }
+        else
+        {
+            selectedAnswer = string.Empty;
+        }
+    }
+
+    public class Question
+    {
+        public string Text { get; set; }
+        public string CorrectAnswer { get; set; }
+    }
+}
 
 
 
