@@ -13,6 +13,6 @@
 
 
   <ItemGroup>
-    <Content Include=".github\workflows\mudblazor-ci.yml" />
+    <Content Include=".github\workflows\blazor-ci.yml" />
   </ItemGroup>
 </Project>
