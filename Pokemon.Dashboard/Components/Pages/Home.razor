@@ -1,8 +1,16 @@
 ﻿@page "/"
 @using Pokemon.Dashboard.Components.Design
 
-<h1> Hello World </h1>
+<h1> Here you have Overview for the Pokemons </h1>
 
+<MudTextField Label="Suche Pokémon" @bind-Value="searchQuery" />
+
+
+
+@code {
+    private string searchQuery = "";
+}
+  
 <PokemonList></PokemonList>
 
 

@@ -1,8 +1,67 @@
+@* @using Pokemon.Dashboard.Services *@
+@* @inject PokemonService pokemonService *@
+@* *@
+@* @code { *@
+@*     private List<string?> _pokemonNames = new(); *@
+@* *@
+@*     protected override async Task OnInitializedAsync() *@
+@*     { *@
+@*         var pokemonList = await pokemonService.GetPokemonListAsync(); *@
+@*         if (pokemonList?.results != null) *@
+@*         { *@
+@*             _pokemonNames = pokemonList.results.Select(p => p.name).ToList(); *@
+@*         } *@
+@*     } *@
+@* } *@
+@* <MudGrid container> *@
+@*     @if (_pokemonNames.Count > 0) *@
+@*     { *@
+@*         @foreach (var name in _pokemonNames) *@
+@*         { *@
+@*             <MudItem xs="12" sm="6" md="4"> *@
+@*                 <PokemonCard PokemonName="@name" /> *@
+@*             </MudItem> *@
+@*         } *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <p>Pokémon werden geladen...</p> *@
+@*     } *@
+@* </MudGrid> *@
+
 @using Pokemon.Dashboard.Services
 @inject PokemonService pokemonService
 
+<MudTextField Label="Suche Pokémon" @bind-Value="SearchQuery" />
+<MudPagination Page="@currentPage" PageSize="@pageSize" TotalItems="@_pokemonNames.Count" OnPageChanged="LoadPage" />
+
+<MudGrid Container>
+    @if (FilteredPaginatedPokemonNames.Any())
+    {
+        @foreach (var name in FilteredPaginatedPokemonNames)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <PokemonCard PokemonName="@name" />
+            </MudItem>
+        }
+    }
+    else
+    {
+        <p>Keine Pokémon gefunden...</p>
+    }
+</MudGrid>
+
 @code {
+    [Parameter] public string SearchQuery { get; set; } = "";
+    private int currentPage = 1;
+    private int pageSize = 20; // Anzahl Pokémon pro Seite
     private List<string?> _pokemonNames = new();
+
+    private IEnumerable<string?> FilteredPaginatedPokemonNames =>
+        _pokemonNames
+            .Where(name => string.IsNullOrEmpty(SearchQuery) || name?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) == true)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize);
 
     protected override async Task OnInitializedAsync()
     {
@@ -12,19 +71,12 @@
             _pokemonNames = pokemonList.results.Select(p => p.name).ToList();
         }
     }
+
+    private void LoadPage(int page)
+    {
+        currentPage = page;
+    }
 }
-<MudGrid container>
-    @if (_pokemonNames.Count > 0)
-    {
-        @foreach (var name in _pokemonNames)
-        {
-            <MudItem xs="12" sm="6" md="4">
-                <PokemonCard PokemonName="@name" />
-            </MudItem>
-        }
-    }
-    else
-    {
-        <p>Pokémon werden geladen...</p>
-    }
-</MudGrid>
+
+
+
