@@ -1,0 +1,47 @@
+name: Build & Deploy MudBlazor App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: .NET installieren
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Abhängigkeiten wiederherstellen
+        run: dotnet restore
+
+      - name: Build der Anwendung
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Tests ausführen
+        run: dotnet test --configuration Release --no-build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: .NET veröffentlichen
+        run: dotnet publish -c Release -o publish
+
+      - name: Deployment vorbereiten
+        run: |
+          cd publish
+          zip -r ../mudblazor-app.zip .
