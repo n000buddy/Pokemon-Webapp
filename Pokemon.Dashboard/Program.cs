@@ -1,5 +1,6 @@
 using MudBlazor.Services;
 using Pokemon.Dashboard.Components;
+using Pokemon.Dashboard.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,13 @@ builder.Services.AddMudServices();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddHttpClient<PokemonService>(client =>
+{
+    client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
+});
+
+
 
 var app = builder.Build();
 

@@ -1,0 +1,29 @@
+@using Pokemon.Dashboard.Model
+@using Pokemon.Dashboard.Services
+@inject PokemonService pokemonService
+
+@code {
+    [Parameter] public string pokemonName { get; set; } = "pikachu";
+    private Pokemon? _pokemon;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _pokemon = await pokemonService.GetPokemonAsync(pokemonName);
+    }
+}
+
+<MudCard>
+    <MudCardContent>
+        @if (_pokemon != null)
+        {
+            <h3>@_pokemon.name</h3>
+            <p>@_pokemon.height</p>
+            <p>@_pokemon.weight</p>
+            <img src="@_pokemon.sprites?.front_default" alt="@_pokemon.name" />
+        }
+        else
+        {
+            <p>Pokémon wird geladen...</p>
+        }
+    </MudCardContent>
+</MudCard>

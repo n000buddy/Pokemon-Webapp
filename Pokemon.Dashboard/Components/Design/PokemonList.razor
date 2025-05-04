@@ -1,0 +1,30 @@
+@using Pokemon.Dashboard.Services
+@inject PokemonService pokemonService
+
+@code {
+    private List<string?> _pokemonNames = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pokemonList = await pokemonService.GetPokemonListAsync();
+        if (pokemonList?.results != null)
+        {
+            _pokemonNames = pokemonList.results.Select(p => p.name).ToList();
+        }
+    }
+}
+<MudGrid container>
+    @if (_pokemonNames.Count > 0)
+    {
+        @foreach (var name in _pokemonNames)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <PokemonCard PokemonName="@name" />
+            </MudItem>
+        }
+    }
+    else
+    {
+        <p>Pokémon werden geladen...</p>
+    }
+</MudGrid>
