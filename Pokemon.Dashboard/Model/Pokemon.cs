@@ -6,5 +6,6 @@ public class Pokemon
     public int id { get; set; }
     public int height { get; set; }
     public int weight { get; set; }
+    //public is_main_series boolean { get; set; }
     public PokemonSprites? sprites { get; set; }
 }

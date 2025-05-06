@@ -1,0 +1,73 @@
+﻿<h3>QuizComponent</h3>
+<MudCard Class="quiz-card">
+    <MudCardContent>
+        <MudText Typo="Typo.h5">@currentQuestion.Question</MudText>
+        <MudRadioGroup T="string" SelectedOptionChanged="OnAnswerSelected">
+            @foreach (var answer in currentQuestion.Answers)
+            {
+                <MudRadio T="string" Value="@answer">@answer</MudRadio>
+            }
+        </MudRadioGroup>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CheckAnswer">Überprüfen</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="NextQuestion">Weiter</MudButton>
+    </MudCardActions>
+    <MudText Color="Color.Info">@feedbackMessage</MudText>
+</MudCard>
+
+@code {
+    private List<QuizQuestion> quizQuestions = new List<QuizQuestion>
+    {
+        new QuizQuestion { Question = "Was ist die Hauptstadt von Deutschland?", Answers = new List<string> { "Berlin", "Hamburg", "München", "Frankfurt" }, CorrectAnswerIndex = 0 },
+        new QuizQuestion { Question = "Wie viele Planeten hat unser Sonnensystem?", Answers = new List<string> { "7", "8", "9", "10" }, CorrectAnswerIndex = 1 }
+    };
+
+    private int currentQuestionIndex = 0;
+    private QuizQuestion currentQuestion;
+    private string selectedAnswer;
+    private string feedbackMessage;
+    private int score = 0;
+
+    protected override void OnInitialized()
+    {
+        currentQuestion = quizQuestions[currentQuestionIndex];
+    }
+
+    private void OnAnswerSelected(string answer)
+    {
+        selectedAnswer = answer;
+    }
+
+    private void CheckAnswer()
+    {
+        if (selectedAnswer == currentQuestion.Answers[currentQuestion.CorrectAnswerIndex])
+        {
+            feedbackMessage = "Richtig!";
+            score++;
+        }
+        else
+        {
+            feedbackMessage = "Falsch! Die richtige Antwort ist: " + currentQuestion.Answers[currentQuestion.CorrectAnswerIndex];
+        }
+
+        StateHasChanged();
+    }
+
+    private void NextQuestion()
+    {
+        if (currentQuestionIndex < quizQuestions.Count - 1)
+        {
+            currentQuestionIndex++;
+            currentQuestion = quizQuestions[currentQuestionIndex];
+            feedbackMessage = "";
+            selectedAnswer = "";
+        }
+        else
+        {
+            feedbackMessage = $"Quiz beendet! Dein Punktestand: {score}/{quizQuestions.Count}";
+        }
+
+        StateHasChanged();
+    }
+}
