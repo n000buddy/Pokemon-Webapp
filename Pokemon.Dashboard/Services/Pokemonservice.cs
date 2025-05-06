@@ -6,10 +6,8 @@ public class PokemonService(HttpClient httpClient)
     {
         return await httpClient.GetFromJsonAsync<Pokemon.Dashboard.Model.Pokemon>($"pokemon/{name}");
     }
-    
     public async Task<Model.NamedApiResourceList?> GetPokemonListAsync()
     {
         return await httpClient.GetFromJsonAsync<Model.NamedApiResourceList>("pokemon?limit=100");
     }
-    
 }
