@@ -1,15 +1,76 @@
+using System.Collections.Concurrent;
+using System.Net.Http.Json;
+using System.Text.Json;
+using Pokemon.Dashboard.Model;
+
 namespace Pokemon.Dashboard.Services;
 
-public class PokemonService(HttpClient httpClient)
+public class PokemonService
 {
-    public async Task<Pokemon.Dashboard.Model.Pokemon?> GetPokemonAsync(string name)
+    private readonly HttpClient _httpClient;
+    private static readonly ConcurrentDictionary<string, Model.Pokemon?> Cache = new();
+
+    public PokemonService(HttpClient httpClient)
     {
-        return await httpClient.GetFromJsonAsync<Pokemon.Dashboard.Model.Pokemon>($"pokemon/{name}");
+        _httpClient = httpClient;
     }
-    
-    public async Task<Model.NamedApiResourceList?> GetPokemonListAsync()
+
+    public async Task<Model.Pokemon?> GetPokemonAsync(string name)
     {
-        return await httpClient.GetFromJsonAsync<Model.NamedApiResourceList>("pokemon?limit=100");
+        if (Cache.TryGetValue(name, out var cachedPokemon))
+        {
+            return cachedPokemon;
+        }
+
+        try
+        {
+            var options = new JsonSerializerOptions
+            {
+                MaxDepth = 64
+            };
+
+            var response = await _httpClient.GetAsync($"pokemon/{name}");
+            response.EnsureSuccessStatusCode();
+
+            var pokemon = await response.Content.ReadFromJsonAsync<Model.Pokemon>(options);
+            if (pokemon != null)
+            {
+                Cache[name] = pokemon;
+            }
+
+            return pokemon;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler beim Abrufen des Pokemons: {ex.Message}");
+            return null;
+        }
     }
-    
+
+    public async Task<NamedApiResourceList?> GetPokemonListAsync(int limit = 200)
+    {
+        try
+        {
+            var options = new JsonSerializerOptions
+            {
+                MaxDepth = 64
+            };
+
+            var response = await _httpClient.GetAsync($"pokemon?limit={limit}");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<NamedApiResourceList>(options);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Fehler beim Abrufen der Pokemon-Liste: {ex.Message}");
+            return null;
+        }
+    }
+
+    public async Task<List<Model.Pokemon?>> GetPokemonListAsync(IEnumerable<string> names)
+    {
+        var tasks = names.Select(GetPokemonAsync);
+        return (await Task.WhenAll(tasks)).ToList();
+    }
 }
