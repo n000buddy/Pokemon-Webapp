@@ -30,13 +30,31 @@
         </div>
 
         <!-- Rückseite -->
-        <div class="flip-card-back">
+        
+        
+            <div class="flip-card-back">
             @if (_pokemon != null)
             {
                 <div class="back-content">
-                   
-                    <p>Höhe: @_pokemon.height</p>
-                    <p>Gewicht: @_pokemon.weight</p>
+                    <div class="info">
+                        <p>Höhe: @_pokemon.height</p>
+                        <p>Gewicht: @_pokemon.weight</p>
+                        <p>Fähigkeiten:</p>
+                        <ul>
+                            @foreach (var ability in _pokemon.abilities ?? new List<PokemonAbility>())
+                            {
+                                <li>@ability.ability?.name</li>
+                            }
+                        </ul>
+                        <p>Typen:</p>
+                        <ul>
+                            @foreach (var type in _pokemon.types ?? new List<PokemonType>())
+                            {
+                                <li>@type.type?.name</li>
+                            }
+                        </ul>
+                    </div>
+    
                 </div>
             }
             else
@@ -50,8 +68,8 @@
 <style>
     .flip-card {
         perspective: 800px;
-        width: 200px;
-        height: 300px;
+        width: 150px;
+        height: 250px;
     }
 
     .flip-card-inner {
@@ -76,6 +94,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding: 10px;
     }
 
     .flip-card-front {
@@ -84,32 +103,30 @@
 
     .flip-card-back {
         background-color: #f8f9fa;
+        /*display: flex;*/
+        /*flex-direction:  column;*/
+        /*justify-content: center;*/
         transform: rotateY(180deg);
     }
 
-    .front-content img {
-        max-width: 100% !important; 
-        height: 150px !important;  
-        object-fit: contain;      
-        margin-bottom: 10px;
+    .front-content img, .back-content .image img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     .front-content h3, 
     .back-content p {
-        color: black; 
+        color: black;
+       
     }
 
-    .front-content h1 {
-        margin: 0;
-        font-weight: bold;
+    .back-content .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
     }
 
-    .back-content h2{
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    .back-content p {
-        margin: 5px 0;
-    }
 </style>
+
