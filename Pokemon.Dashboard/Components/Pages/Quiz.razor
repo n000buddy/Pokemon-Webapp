@@ -1,1 +1,91 @@
-﻿
+﻿@page "/quiz"
+@using Pokemon.Dashboard.wwwroot.quiz.css   
+  @using Pokemon.Dashboard.Model
+  
+  <h3>Pokémon Quiz</h3>
+  
+  @if (_currentPokemon != null && _round <= _maxRounds)
+  {
+      <p>Runde @_round von @_maxRounds</p>
+      <p>Welches Pokémon ist das?</p>
+      <img src="@_currentPokemon.sprites?.front_default" alt="Pokemon" style="width: 250px; height: 250px;" />
+  
+      <MudTextField @bind-Value="_userInput" Placeholder="What Pokemon is this?" />
+      <MudButton OnClick="CheckAnswer">Check the Answer</MudButton>
+  
+      @if (_isCorrect.HasValue)
+      {
+          <p style="color: @( _isCorrect.Value ? "green" : "red")">
+              @(_isCorrect.Value ? "Richtig!" : "Falsch, versuche es erneut.")
+          </p>
+      }
+  }
+  else if (_round > _maxRounds)
+  {
+      <p>Finish the Quiz You play all Rounds.</p>
+      <MudButton OnClick="RestartQuiz">Restart the Quiz</MudButton>
+  }
+  else
+  {
+      <p>Quiz is Loading.</p>
+  }
+  
+  <MudButton OnClick="LoadNewPokemon">Start new Quiz</MudButton>
+  
+  @code {
+      private List<Pokemon> _pokemonList = new();
+      private Pokemon? _currentPokemon;
+      private string _userInput = string.Empty;
+      private bool? _isCorrect;
+      private int _round = 1;
+      private const int _maxRounds = 5;
+  
+      protected override async Task OnInitializedAsync()
+      {
+          _pokemonList = new List<Pokemon>
+          {
+              new Pokemon { name = "Pikachu", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" } },
+              new Pokemon { name = "Charmander", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" } },
+              new Pokemon { name = "Bulbasaur", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" } },
+              new Pokemon { name = "Squirtle", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" } },
+              new Pokemon { name = "Jigglypuff", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" } },
+              new Pokemon { name = "Meowth", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png" } },
+              new Pokemon { name = "Psyduck", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png" } },
+              new Pokemon { name = "Snorlax", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png" } },
+              new Pokemon { name = "Eevee", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png" } },
+              new Pokemon { name = "Gengar", sprites = new PokemonSprites { front_default = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" } }
+          };
+          LoadNewPokemon();
+      }
+  
+      private void LoadNewPokemon()
+      {
+          var random = new Random();
+          _currentPokemon = _pokemonList[random.Next(_pokemonList.Count)];
+          _userInput = string.Empty;
+          _isCorrect = null;
+      }
+  
+      private void CheckAnswer()
+      {
+          if (_currentPokemon != null)
+          {
+              _isCorrect = string.Equals(_userInput, _currentPokemon.name, StringComparison.OrdinalIgnoreCase);
+  
+              if (_isCorrect.Value)
+              {
+                  _round++;
+                  if (_round <= _maxRounds)
+                  {
+                      LoadNewPokemon();
+                  }
+              }
+          }
+      }
+  
+      private void RestartQuiz()
+      {
+          _round = 1;
+          LoadNewPokemon();
+      }
+  }

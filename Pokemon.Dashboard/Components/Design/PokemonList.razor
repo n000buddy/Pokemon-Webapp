@@ -13,12 +13,12 @@
         }
     }
 }
-<MudGrid container>
+<MudGrid container GutterSize="0">
     @if (_pokemonNames.Count > 0)
     {
         @foreach (var name in _pokemonNames)
         {
-            <MudItem xs="12" sm="6" md="4">
+            <MudItem xs="12" sm="6" md="4" Class="no-padding">
                 <PokemonCard PokemonName="@name" />
             </MudItem>
         }
@@ -28,3 +28,9 @@
         <p>Pokémon werden geladen...</p>
     }
 </MudGrid>
+
+<style>
+    .no-padding {
+        padding: 0;
+    }
+</style>
