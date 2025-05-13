@@ -1,46 +1,48 @@
 @using Pokemon.Dashboard.Services
+@using Pokemon.Dashboard.Model
 @inject PokemonService pokemonService
 
 <MudTextField @bind-Value="_searchTerm"
-              Placeholder="Pokémon search..."
+              Placeholder="Pokémon suchen..."
               Variant="Variant.Outlined"
               Style="margin-top:10px"
-              AdornmentIcon="@Icons.Material.Filled.Search"
               Class="mb-5" />
 
-
-
 <MudGrid container GutterSize="0">
-    @if (_pokemonNames.Count > 0)
+    @if (FilteredPokemon.Any())
     {
-        @foreach (var name in FilteredPokemonNames)
+        @foreach (var pokemon in FilteredPokemon)
         {
             <MudItem xs="12" sm="5" md="2">
-                <PokemonCard PokemonName="@name" />
+                <PokemonCard PokemonName="@pokemon.name" />
             </MudItem>
         }
     }
     else
     {
-        <p>Pokémon are Loading..</p>
+        <p>Kein Pokémon gefunden. Versuch eine andere Schreibweise!</p>
     }
     </MudGrid>
 
     @code {
-    private List<string?> _pokemonNames = new();
+    private List<Pokemon> _pokemonList = new();
     private string _searchTerm = string.Empty;
 
-    private IEnumerable<string?> FilteredPokemonNames =>
+    private IEnumerable<Pokemon> FilteredPokemon =>
         string.IsNullOrWhiteSpace(_searchTerm)
-            ? _pokemonNames
-            : _pokemonNames.Where(n => n != null && n.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
+            ? _pokemonList
+            : _pokemonList.Where(p => p.name != null && p.name.StartsWith(_searchTerm, StringComparison.OrdinalIgnoreCase));
 
     protected override async Task OnInitializedAsync()
     {
         var pokemonList = await pokemonService.GetPokemonListAsync();
         if (pokemonList?.results != null)
         {
-            _pokemonNames = pokemonList.results.Select(p => p.name).ToList();
+            // Annahme: pokemonList.results ist List<NamedApiResource>
+            // Passe das ggf. an, falls du mehr Infos brauchst!
+            _pokemonList = pokemonList.results
+                .Select(p => new Pokemon { name = p.name })
+                .ToList();
         }
     }
 }
