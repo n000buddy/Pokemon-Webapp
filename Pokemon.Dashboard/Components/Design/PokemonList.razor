@@ -3,7 +3,7 @@
 @inject PokemonService pokemonService
 
 <MudTextField @bind-Value="_searchTerm"
-              Placeholder="Pokémon suchen..."
+              Placeholder="Pokémon search..."
               Variant="Variant.Outlined"
               Style="margin-top:10px"
               Class="mb-5" />
@@ -20,7 +20,7 @@
     }
     else
     {
-        <p>Kein Pokémon gefunden. Versuch eine andere Schreibweise!</p>
+        <p>No Pokemon found</p>
     }
     </MudGrid>
 
@@ -38,8 +38,6 @@
         var pokemonList = await pokemonService.GetPokemonListAsync();
         if (pokemonList?.results != null)
         {
-            // Annahme: pokemonList.results ist List<NamedApiResource>
-            // Passe das ggf. an, falls du mehr Infos brauchst!
             _pokemonList = pokemonList.results
                 .Select(p => new Pokemon { name = p.name })
                 .ToList();

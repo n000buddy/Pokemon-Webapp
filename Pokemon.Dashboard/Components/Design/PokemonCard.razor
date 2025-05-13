@@ -11,9 +11,6 @@
         _pokemon = await pokemonService.GetPokemonAsync(pokemonName);
     }
 }
-
-
-
 <MudCard Class="flip-card">
     <div class="flip-card-inner">
         <!-- Frontsite  -->
@@ -67,9 +64,17 @@
 
 <style>
     .flip-card {
-        perspective: 700px;
+        perspective: 1000px;
         width: 250px;
         height: 300px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .flip-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
 
     .flip-card-inner {
@@ -94,28 +99,45 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 10px;
+        padding: 15px;
+        border-radius: 15px;
     }
 
     .flip-card-front {
-        background-color: #20B2AA;
+        background: linear-gradient(135deg, #20B2AA, #2E8B57);
+        color: white;
     }
 
     .flip-card-back {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
         transform: rotateY(180deg);
+        color: #333;
     }
 
     .front-content img, .back-content .image img {
-        max-width: 100%;
+        max-width: 80%;
         height: auto;
         object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-    .front-content h3, 
-    .back-content p {
-        color: black;
-       
+    .front-content h3 {
+        margin-top: 10px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-content p, 
+    .back-content ul {
+        margin: 5px 0;
+        font-size: 0.9rem;
+    }
+
+    .back-content ul {
+        padding-left: 20px;
+        list-style-type: disc;
     }
 
     .back-content .info {
@@ -123,6 +145,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
+        gap: 5px; /* Adjust gap between items */
     }
 </style>
-
