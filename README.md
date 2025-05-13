@@ -13,8 +13,6 @@ Die Hauptziele der Anwendung sind:
 
 - Ein Quiz, mit dem Nutzer ihr Wissen über Pokémon testen und vertiefen können.
 
-
-
 Project description: 
 
 The aim of this project is to develop a user-friendly web application that provides an interactive representation of Pokémon using the Pokémon API. Users should be able to select a Pokémon and immediately receive all the important information about it, including its type, abilities and weaknesses.
@@ -28,14 +26,9 @@ The main objectives of the application are
 
 - A quiz that allows users to test and deepen their knowledge of Pokémon.
 
-  
-
 Zielgruppe / Target group
 Die Webanwendung richtet sich besonders an langjährige Pokémon-Fans, die eine strukturierte und interaktive Möglichkeit suchen, mehr über ihre Lieblings-Pokémon zu erfahren. Das Quiz-Feature soll die Spieler zudem motivieren und ihr Wissen auf spielerische Weise herausfordern.
 The web application is particularly aimed at long-time Pokémon fans who are looking for a structured and interactive way to learn more about their favorite Pokémon. The quiz feature is also designed to motivate players and challenge their knowledge in a fun way.
-
-
-
 
 Framework: / Framework: 
 Es wurde das Mudblazor-Framework benutzt. Ich habe mich für dieses Framework entschieden, da ich es bereits in der Vergangenheit benutzt habe. Dadurch fiel mir der Einstieg nicht mehr so schwer und die Umsetzung war einfacher.
@@ -49,25 +42,21 @@ Programme: / Programs:
 Die Pokemon Api wurden in der Jetbraisn Rider und Visual Studio IDE programmiert
 The Pokemon Api was programmed in the Jetbraisn Rider and Visual Studio IDE: 
 
-
 Benutzerfreundlichkeit: / Ease of use:
 Die Anwendung verfügt über einen wechselbaren Modus wo der User zwischen Dark und Hellen Modus sich entscheiden kann. Auch auf ein Responsie Design wurde geachtet wo durch sich die Karten anpassen wenn sich das Fenster verkleiner. 
 The application has a switchable mode where the user can choose between dark and light mode. Attention has also been paid to a responsive design where the maps adapt when the window is reduced in size. 
 
-
-
 Herausforderungen und LÖsungsvorsätze: / Challenges and solutions:
 Herausforderungen waren am Anfang die Einbindung der Api und Anzeigen der Daten dieses Problem wurde mit Hilfe eines Kollegen gelöscht wodurch es möglich war die API richtig einzubinden und die Daten darzustellen 
-Challenges at the beginning were the integration of the API and displaying the data this problem was solved with the help of a colleague, which made it possible to integrate the API correctly and display the data
+Challenges at the beginning were the integration of the API and displaying the data this problem was solved with the help of a colleague, which made it possible to integrate the API correctly and display the data.
 
-
-
+Weitere Herausforderungen sind Suchlogic zu konfigurieren. Die Suche wird angezeigt jedoch bei Eingabe eines Pokemons erscheint ein anderes.   
+Other challenges are configuring search logic. The search is displayed, but when you enter a Pokemon, a different one appears.
 
 Was hat besonders gut funktioniert ? / What worked particularly well? 
 
 Gestaltung der Karten und das Programmieren zwischen den 2 Verschiedenen IDE 
 Designing the cards and programming between the 2 different IDEs 
-
 
 Mögliche Erweiterungen: / Possible extensions:
   -Anpassungen am Design evtl. 
