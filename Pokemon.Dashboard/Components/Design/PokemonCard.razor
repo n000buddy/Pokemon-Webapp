@@ -14,7 +14,7 @@
 
 <MudCard Class="flip-card">
     <div class="flip-card-inner">
-        <!-- Vorderseite -->
+        <!-- Frontsite  -->
         <div class="flip-card-front">
             @if (_pokemon != null)
             {
@@ -25,28 +25,26 @@
             }
             else
             {
-                <p>Pokémon wird geladen...</p>
+                <p>Pokémon are Loading...</p>
             }
         </div>
 
-        <!-- Rückseite -->
-        
-        
+        <!-- Backsite -->
             <div class="flip-card-back">
             @if (_pokemon != null)
             {
                 <div class="back-content">
                     <div class="info">
-                        <p>Höhe: @_pokemon.height</p>
-                        <p>Gewicht: @_pokemon.weight</p>
-                        <p>Fähigkeiten:</p>
+                        <p>Hight: @_pokemon.height</p>
+                        <p>Weight: @_pokemon.weight</p>
+                        <p>Capabilities:</p>
                         <ul>
                             @foreach (var ability in _pokemon.abilities ?? new List<PokemonAbility>())
                             {
                                 <li>@ability.ability?.name</li>
                             }
                         </ul>
-                        <p>Typen:</p>
+                        <p>Typ:</p>
                         <ul>
                             @foreach (var type in _pokemon.types ?? new List<PokemonType>())
                             {
@@ -59,7 +57,7 @@
             }
             else
             {
-                <p>Pokémon wird geladen...</p>
+                <p>Pokémon are Loading...</p>
             }
         </div>
     </div>
@@ -67,9 +65,9 @@
 
 <style>
     .flip-card {
-        perspective: 800px;
-        width: 150px;
-        height: 250px;
+        perspective: 700px;
+        width: 250px;
+        height: 300px;
     }
 
     .flip-card-inner {
@@ -103,9 +101,6 @@
 
     .flip-card-back {
         background-color: #f8f9fa;
-        /*display: flex;*/
-        /*flex-direction:  column;*/
-        /*justify-content: center;*/
         transform: rotateY(180deg);
     }
 
@@ -127,6 +122,5 @@
         justify-content: center;
         align-items: flex-start;
     }
-
 </style>
 

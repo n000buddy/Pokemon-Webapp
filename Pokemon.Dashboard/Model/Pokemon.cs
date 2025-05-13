@@ -5,12 +5,10 @@ public class Pokemon
     public string? name { get; set; }
     public int id { get; set; }
     public int height { get; set; }
-
     public int weight { get; set; }
-    // public int hp { get; set; } // HP hinzufügen
-     public PokemonSprites? sprites { get; set; }
-     public List<PokemonAbility>? abilities { get; set; } // Fähigkeiten hinzufügen
-     public List<PokemonType>? types { get; set; } // Typen hinzufügen
+    public PokemonSprites? sprites { get; set; }
+    public List<PokemonAbility>? abilities { get; set; }
+    public List<PokemonType>? types { get; set; }
 
 }
 

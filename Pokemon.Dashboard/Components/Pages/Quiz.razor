@@ -8,7 +8,7 @@
   {
       <p>Runde @_round von @_maxRounds</p>
       <p>Welches Pokémon ist das?</p>
-      <img src="@_currentPokemon.sprites?.front_default" alt="Pokemon" style="width: 250px; height: 250px;" />
+      <img src="@_currentPokemon.sprites?.front_default" alt="Pokemon" style="width: 250px; height: 350px;" />
   
       <MudTextField @bind-Value="_userInput" Placeholder="What Pokemon is this?" />
       <MudButton OnClick="CheckAnswer">Check the Answer</MudButton>
@@ -16,7 +16,7 @@
       @if (_isCorrect.HasValue)
       {
           <p style="color: @( _isCorrect.Value ? "green" : "red")">
-              @(_isCorrect.Value ? "Richtig!" : "Falsch, versuche es erneut.")
+              @(_isCorrect.Value ? "Correct!" : "Wrong, try it again")
           </p>
       }
   }
