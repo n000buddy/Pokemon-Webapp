@@ -46,7 +46,7 @@ Benutzerfreundlichkeit: / Ease of use:
 Die Anwendung verfügt über einen wechselbaren Modus wo der User zwischen Dark und Hellen Modus sich entscheiden kann. Auch auf ein Responsie Design wurde geachtet wo durch sich die Karten anpassen wenn sich das Fenster verkleiner. 
 The application has a switchable mode where the user can choose between dark and light mode. Attention has also been paid to a responsive design where the maps adapt when the window is reduced in size. 
 
-Herausforderungen und LÖsungsvorsätze: / Challenges and solutions:
+Herausforderungen und Lösungsvorsätze : / Challenges and solutions:
 Herausforderungen waren am Anfang die Einbindung der Api und Anzeigen der Daten dieses Problem wurde mit Hilfe eines Kollegen gelöscht wodurch es möglich war die API richtig einzubinden und die Daten darzustellen 
 Challenges at the beginning were the integration of the API and displaying the data this problem was solved with the help of a colleague, which made it possible to integrate the API correctly and display the data.
 
