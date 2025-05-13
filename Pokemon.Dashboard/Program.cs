@@ -2,7 +2,6 @@ using MudBlazor.Services;
 using Pokemon.Dashboard.Components;
 using Pokemon.Dashboard.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
@@ -17,8 +16,6 @@ builder.Services.AddHttpClient<PokemonService>(client =>
     client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
 });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,12 +27,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
 app.UseAntiforgery();
-
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
 app.Run();

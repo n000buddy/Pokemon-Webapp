@@ -1,8 +1,39 @@
 @using Pokemon.Dashboard.Services
 @inject PokemonService pokemonService
 
-@code {
+<MudTextField @bind-Value="_searchTerm"
+              Placeholder="Pokémon search..."
+              Variant="Variant.Outlined"
+              Style="margin-top:10px"
+              AdornmentIcon="@Icons.Material.Filled.Search"
+              Class="mb-5" />
+
+
+
+<MudGrid container GutterSize="0">
+    @if (_pokemonNames.Count > 0)
+    {
+        @foreach (var name in FilteredPokemonNames)
+        {
+            <MudItem xs="12" sm="5" md="2">
+                <PokemonCard PokemonName="@name" />
+            </MudItem>
+        }
+    }
+    else
+    {
+        <p>Pokémon are Loading..</p>
+    }
+    </MudGrid>
+
+    @code {
     private List<string?> _pokemonNames = new();
+    private string _searchTerm = string.Empty;
+
+    private IEnumerable<string?> FilteredPokemonNames =>
+        string.IsNullOrWhiteSpace(_searchTerm)
+            ? _pokemonNames
+            : _pokemonNames.Where(n => n != null && n.Contains(_searchTerm, StringComparison.OrdinalIgnoreCase));
 
     protected override async Task OnInitializedAsync()
     {
@@ -13,24 +44,3 @@
         }
     }
 }
-<MudGrid container GutterSize="0">
-    @if (_pokemonNames.Count > 0)
-    {
-        @foreach (var name in _pokemonNames)
-        {
-            <MudItem xs="12" sm="5" md="2">
-                <PokemonCard PokemonName="@name" />
-            </MudItem>
-        }
-    }
-    else
-    {
-        <p>Pokémon werden geladen...</p>
-    }
-</MudGrid>
-
-<style>
-    .no-padding {
-        padding: 0;
-    }
-</style>
