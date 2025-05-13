@@ -20,7 +20,6 @@ public class PokemonService
         {
             return cachedPokemon;
         }
-
         try
         {
             var options = new JsonSerializerOptions
@@ -41,11 +40,10 @@ public class PokemonService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Fehler beim Abrufen des Pokemons: {ex.Message}");
+            Console.WriteLine($"Error when retrieving the Pokemon list: {ex.Message}");
             return null;
         }
     }
-
     public async Task<NamedApiResourceList?> GetPokemonListAsync(int limit = 200)
     {
         try
@@ -62,11 +60,10 @@ public class PokemonService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Fehler beim Abrufen der Pokemon-Liste: {ex.Message}");
+            Console.WriteLine($"Error when retrieving the Pokemon list: {ex.Message}");
             return null;
         }
-    }
-
+    } 
     public async Task<List<Model.Pokemon?>> GetPokemonListAsync(IEnumerable<string> names)
     {
         var tasks = names.Select(GetPokemonAsync);

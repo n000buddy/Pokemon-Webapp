@@ -27,7 +27,6 @@
                 <p>Pokémon are Loading...</p>
             }
         </div>
-
         <!-- Backsite -->
             <div class="flip-card-back">
             @if (_pokemon != null)
@@ -76,7 +75,7 @@
     .flip-card:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
-
+    
     .flip-card-inner {
         position: relative;
         width: 100%;
@@ -111,11 +110,11 @@
     .flip-card-back {
         background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
         transform: rotateY(180deg);
-        color: #333;
+        color: #1f1e06;
     }
 
     .front-content img, .back-content .image img {
-        max-width: 80%;
+        max-width: 100%;
         height: auto;
         object-fit: contain;
         border-radius: 10px;
@@ -137,7 +136,7 @@
 
     .back-content ul {
         padding-left: 20px;
-        list-style-type: disc;
+        list-style-type: circle /* Use circle for bullet points */
     }
 
     .back-content .info {
