@@ -35,24 +35,24 @@ jobs:
       - name: Tests ausführen
         run: dotnet test --configuration Release
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Repository abrufen
-        uses: actions/checkout@v3
+  #deploy:
+    #needs: build
+    #runs-on: ubuntu-latest
+    #steps:
+     # - name: Repository abrufen
+      #  uses: actions/checkout@v3
 
-      - name: .NET Setup
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0.x'
+     # - name: .NET Setup
+        #uses: actions/setup-dotnet@v3
+        #with:
+         # dotnet-version: '9.0.x'
 
-      - name: Publish Blazor App
-        run: dotnet publish -c Release -o out
+     # - name: Publish Blazor App
+      #  run: dotnet publish -c Release -o out
 
-      - name: Deployment auf Azure
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'MeineMudBlazorApp'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: 'out'
+     # - name: Deployment auf Azure
+       # uses: azure/webapps-deploy@v2
+        #with:
+         # app-name: 'MeineMudBlazorApp'
+         # publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+         # package: 'out'
