@@ -25,14 +25,15 @@
     </MudGrid>
 
     @code {
-    private List<Pokemon> _pokemonList = new();
-    private string _searchTerm = string.Empty;
+    private List<Pokemon> _pokemonList = new(); /* Save the Pokemon in a List from the Service */
+    private string _searchTerm = string.Empty; /*Save the Searchterm in a string */
 
     private IEnumerable<Pokemon> FilteredPokemon =>
-        string.IsNullOrWhiteSpace(_searchTerm)
+        string.IsNullOrWhiteSpace(_searchTerm) /* Filter the Pokemon by the Searchterm */
             ? _pokemonList
             : _pokemonList.Where(p => p.name != null && p.name.StartsWith(_searchTerm, StringComparison.OrdinalIgnoreCase));
-
+ 
+   /* Loading a list with Pokemon and filter it on the searchterm and give the Component Back */
     protected override async Task OnInitializedAsync()
     {
         var pokemonList = await pokemonService.GetPokemonListAsync();
