@@ -9,9 +9,9 @@
               Class="mb-5" />
 
 <MudGrid container GutterSize="0">
-    @if (FilteredPokemon.Any())
+    @if (filteredPokemon.Any())
     {
-        @foreach (var pokemon in FilteredPokemon)
+        @foreach (var pokemon in filteredPokemon)
         {
             <MudItem xs="12" sm="5" md="2">
                 <PokemonCard PokemonName="@pokemon.name" />
@@ -28,7 +28,7 @@
     private List<Pokemon> _pokemonList = new(); /* Save the Pokemon in a List from the Service */
     private string _searchTerm = string.Empty; /*Save the Searchterm in a string */
 
-    private IEnumerable<Pokemon> FilteredPokemon =>
+    private IEnumerable<Pokemon> filteredPokemon =>
         string.IsNullOrWhiteSpace(_searchTerm) /* Filter the Pokemon by the Searchterm */
             ? _pokemonList
             : _pokemonList.Where(p => p.name != null && p.name.StartsWith(_searchTerm, StringComparison.OrdinalIgnoreCase));
