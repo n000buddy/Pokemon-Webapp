@@ -31,8 +31,8 @@ Die Webanwendung richtet sich besonders an langjährige Pokémon-Fans, die eine 
 The web application is particularly aimed at long-time Pokémon fans who are looking for a structured and interactive way to learn more about their favorite Pokémon. The quiz feature is also designed to motivate players and challenge their knowledge in a fun way.
 
 Framework: / Framework: 
-Es wurde das Mudblazor-Framework benutzt. Ich habe mich für dieses Framework entschieden, da ich es bereits in der Vergangenheit benutzt habe. Dadurch fiel mir der Einstieg nicht mehr so schwer und die Umsetzung war einfacher.
-The Mudblazor framework was used. I opted for this framework because I had already used it in the past. This made it less difficult for me to get started and the implementation was easier.
+Es wurde das Mudblazor-Framework benutzt. Ich habe mich für dieses Framework entschieden, da ich es bereits in der Vergangenheit benutzt habe. Dadurch fiel mir der Einstieg nicht mehr so schwer und die Umsetzung war einfacher. Durch das Framework stand mir eine große Auswahl an Kompenente zuverfügen, welche ich nutzen Konnte für das Projekt .Für die Suchleiste habe ich das MudTextField verwendet, während die Karten mit Hilfe der MudCard Komponente erstellt wurden.
+The Mudblazor framework was used. I opted for this framework because I had already used it in the past. This made it less difficult for me to get started and the implementation was easier. I used the MudTextField for the search bar, while the cards were created using the MudCard component.
 
 Barriefreiheit: Darauf wurde nicht geachtet. Da es nicht teil der Aufgabenstellung war und der Fokus drauf lag eine Webanwendung zu entwicklen welche die Pokemon wieder gibt. 
 Barrier freedom: No attention was paid to this. Since it was not part of the task and the focus was on developing a web application that displays the Pokemon. 
